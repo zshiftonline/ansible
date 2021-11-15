@@ -1,44 +1,26 @@
-- name: Install Apache Package & Apache PHP Support for Ubuntu
-  tags: apache,apache2,ubuntu
-  apt:
+- name: Install apache Package & apache PHP Support for Ubuntu & CentOS
+  tags: apache,httpd,php
+  package:
     name:
-      - apache2
-      - libapache2-mod-php
+      - "{{ apache_package_name }}"
+      - "{{ php_package_name }}"
     state: latest
-  when: ansible_distribution == "Ubuntu"
-
-- name: Install Apache Package & Apache PHP Support for CentOS
-  tags: apache,centos,httpd
-  dnf:
-    name:
-      - httpd
-      - php
-    state: latest
-  when: ansible_distribution == "CentOS"
 
 - name: Start httpd on CentOS
-  tags: apache,centos,httpd
+  tags: apache,httpd
   service:
-    name: httpd
+    name: "{{ apache_service }}"
     state: started
     enabled: yes
-  when: ansible_distribution == "CentOS"
 
 - name: Change E-Mail Address for apache Admin
   tags: apache,centos,httpd
   lineinfile:
     path: /etc/httpd/conf/httpd.conf
     regexp: '^ServerAdmin'
-    line: ServerAdmin zshift47@gmail.com
+    line: ServerAdmin zshift47@gmail.net
   when: ansible_distribution == "CentOS"
-  register: httpd
-
-- name: Restart httpd for CentOS
-  tags: apache,centos,httpd
-  service:
-    name: httpd
-    state: restarted
-  when: httpd.changed
+  notify: restart_apache
 
 - name: Copy Default HTML File for Site
   tags: apache,apache2,httpd
