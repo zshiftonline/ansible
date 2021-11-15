@@ -1,0 +1,44 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+
+  - name: Install Update for CentOS
+    tags: always
+    dnf:
+      update_only: yes
+      update_cache: yes
+    when: ansible_distribution == "CentOS"
+
+  - name: Install Update for Ubuntu
+    tags: always
+    apt:
+      upgrade: dist
+      update_cache: yes
+    when: ansible_distribution == "Ubuntu"
+
+- hosts: all
+  become: true
+  tasks:
+
+  - name: Create Ansible User zshift47z
+    tags: always
+    user:
+      name: zshift47z
+      groups: root
+
+  - name: Add SSH Key for zshift47z
+    tags: always
+    authorized_key:
+      user: zshift47z
+      key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBIm0t2qdQLGLKXt2mjj8wUEmd8KJA5ILfqeXjFpUA4T ansible"
+
+  - name: Add Sudoers File for zshift47z
+    tags: always
+    copy:
+      src: sudoer_zshift47z
+      dest: /etc/sudoers.d/zshift47z
+      owner: root
+      group: root
+      mode: 0440
