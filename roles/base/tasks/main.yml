@@ -1,0 +1,5 @@
+- name: Add SSH Key for zshift47z
+  tags: always
+  authorized_key:
+    user: zshift47z
+    key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBIm0t2qdQLGLKXt2mjj8wUEmd8KJA5ILfqeXjFpUA4T ansible"
