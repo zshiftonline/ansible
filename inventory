@@ -1,2 +1,2 @@
-50.116.41.121
-170.187.146.166
+50.116.41.121 apache_package=apache2 php_package=libapache2-mod-php
+170.187.146.166 apache_package=httpd php_package=php
