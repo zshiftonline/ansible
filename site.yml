@@ -5,12 +5,14 @@
   tasks:
 
   - name: Install Update for CentOS
+    tags: always
     dnf:
       update_only: yes
       update_cache: yes
     when: ansible_distribution == "CentOS"
 
   - name: Install Update for Ubuntu
+    tags: always
     apt:
       upgrade: dist
       update_cache: yes
@@ -21,6 +23,7 @@
   tasks:
 
   - name: Install Apache Package & Apache PHP Support for Ubuntu
+    tags: apache,apache2,ubuntu
     apt:
       name:
         - apache2
@@ -29,9 +32,20 @@
     when: ansible_distribution == "Ubuntu"
 
   - name: Install Apache Package & Apache PHP Support for CentOS
+    tags: apache,centos,httpd
     dnf:
       name:
         - httpd
         - php
       state: latest
     when: ansible_distribution == "CentOS"
+
+- hosts: file_servers
+  become: true
+  tasks:
+
+  - name: Install Samba Package
+    tags: samba
+    package:
+      name: samba
+      state: latest
