@@ -4,13 +4,28 @@
   become: true
   tasks:
 
+  - name: Install Update for CentOS
+    dnf:
+      update_only: yes
+      update_cache: yes
+    when: ansible_distribution == "CentOS"
+
+  - name: Install Update for Ubuntu
+    apt:
+      upgrade: dist
+      update_cache: yes
+    when: ansible_distribution == "Ubuntu"
+
+- hosts: web_servers
+  become: true
+  tasks:
+
   - name: Install Apache Package & Apache PHP Support for Ubuntu
     apt:
       name:
         - apache2
         - libapache2-mod-php
       state: latest
-      update_cache: yes
     when: ansible_distribution == "Ubuntu"
 
   - name: Install Apache Package & Apache PHP Support for CentOS
@@ -19,5 +34,4 @@
         - httpd
         - php
       state: latest
-      update_cache: yes
     when: ansible_distribution == "CentOS"
