@@ -40,6 +40,24 @@
       state: latest
     when: ansible_distribution == "CentOS"
 
+  - name: Copy Default HTML File for Site
+    tags: apache,apache2,httpd
+    copy:
+      src: default_site.html
+      dest: /var/www/html/index.html
+      owner: root
+      group: root
+      mode: 0644
+
+  - name: Copy Default CSS File for Site
+    tags: apache,apache2,httpd
+    copy:
+      src: default_styles.css
+      dest: /var/www/html/styles.css
+      owner: root
+      group: root
+      mode: 0644
+
 - hosts: file_servers
   become: true
   tasks:
