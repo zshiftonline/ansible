@@ -1,6 +1,22 @@
 body {
-    margin-top:10vh;
+    margin-top:25vh;
     text-align:center;
-    background-color: black;
+    background-color:rgb(40,40,40);
     color:white;
+}
+
+h1 {
+    color:lightgrey;
+    letter-spacing:4px;
+}
+
+h3 {
+    color:pink;
+    margin-top:8vh;
+}
+
+h4 {
+    color:lightgrey;
+    margin-top:8vh;
+    letter-spacing:2px;
 }
