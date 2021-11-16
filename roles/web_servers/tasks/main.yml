@@ -18,24 +18,87 @@
   lineinfile:
     path: /etc/httpd/conf/httpd.conf
     regexp: '^ServerAdmin'
-    line: ServerAdmin zshift47@gmail.net
+    line: ServerAdmin zshift47@gmail.com
   when: ansible_distribution == "CentOS"
   notify: restart_apache
 
-- name: Copy Default HTML File for Site
+- name: Copy Zshift Online HTML Files for Site
   tags: apache,apache2,httpd
   copy:
-    src: default_site.html
+    src: index.html
     dest: /var/www/html/index.html
     owner: root
     group: root
     mode: 0644
 
-- name: Copy Default CSS File for Site
+- name: Copy Zshift Online HTML Files for Site
   tags: apache,apache2,httpd
   copy:
-    src: default_styles.css
-    dest: /var/www/html/styles.css
+    src: about.html
+    dest: /var/www/html/about.html
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Copy Zshift Online HTML Files for Site
+  tags: apache,apache2,httpd
+  copy:
+    src: products.html
+    dest: /var/www/html/products.html
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Copy Zshift Online HTML Files for Site
+  tags: apache,apache2,httpd
+  copy:
+    src: store.html
+    dest: /var/www/html/store.html
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Copy Zshiftonline CSS Files for Site
+  tags: apache,apache2,httpd
+  copy:
+    src: css
+    dest: /var/www/html/
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Copy Zshiftonline JS Files for Site
+  tags: apache,apache2,httpd
+  copy:
+    src: js
+    dest: /var/www/html/
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Copy Zshiftonline image Files for Site
+  tags: apache,apache2,httpd
+  copy:
+    src: img
+    dest: /var/www/html/
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Copy Zshiftonline SCSS Files for Site
+  tags: apache,apache2,httpd
+  copy:
+    src: scss
+    dest: /var/www/html/
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Copy Zshiftonline vendor Files for Site
+  tags: apache,apache2,httpd
+  copy:
+    src: vendor
+    dest: /var/www/html/
     owner: root
     group: root
     mode: 0644
